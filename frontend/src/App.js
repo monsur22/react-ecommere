@@ -10,6 +10,7 @@ import {
 import Home from './components/home/Home';
 import Nav from './components/home/Nav';
 import Footer from './components/home/Footer';
+import Single from './components/home/Single';
 // import AdminHome from './components/admin/AdminHome';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
     <Nav />
         <Switch>
           <Route  exact  path="/"><Home /></Route>
+          {/* <Route    path="/product"><Single /></Route> */}
+          <Route    path="/product/:id"><Single /></Route>
           {/* <Route    path="/Admin"><AdminHome /></Route> */}
           {/* <Route path="/services"><Services /></Route> */}
 
