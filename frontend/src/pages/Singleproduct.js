@@ -1,4 +1,4 @@
-import React, { Component,useState ,useEffect} from 'react'
+import React, {useState ,useEffect} from 'react'
 // import products from '../products';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const Singleproduct = (props) => {
 			setProduct(data)
 		}
 		fetchProduct()
-	},[])
+	},[props])
     if (!product) {
         return <div> Product Not Found</div>;
     }

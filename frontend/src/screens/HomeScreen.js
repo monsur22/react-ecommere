@@ -1,4 +1,4 @@
-import React, { Component,useState ,useEffect} from 'react'
+import React, { useState ,useEffect} from 'react'
 
 import Product from '../pages/Product';
 // import products from '../products.js';
