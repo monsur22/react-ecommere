@@ -1,29 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
-import Home from './components/home/Home';
-import Nav from './components/home/Nav';
-import Footer from './components/home/Footer';
-// import AdminHome from './components/admin/AdminHome';
-
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import Singleproduct from './pages/Singleproduct';
+import Header from './layout/Header';
+import Footer from './layout/Footer';
 function App() {
   return (
     <Router>
-    <div>
-    <Nav />
-        <Switch>
-          <Route  exact  path="/"><Home /></Route>
-          {/* <Route    path="/Admin"><AdminHome /></Route> */}
-          {/* <Route path="/services"><Services /></Route> */}
-
-        </Switch>
-    <Footer/>
+    <div className="grid-container">
+      <Header/>
+      <main>
+        <Route path="/product/:id" component={Singleproduct}></Route>
+        <Route path="/" component={HomeScreen} exact></Route>
+      </main>
+      <Footer/>
     </div>
   </Router>
   );
