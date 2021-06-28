@@ -1,16 +1,18 @@
 import React, { Component,useState ,useEffect} from 'react'
-import products from '../products';
-const Singleproduct = (props) => {
-        const product = products.find((x) => x._id === props.match.params.id);
-        	// const [product, setProduct] = useState([])
-	// useEffect(() =>{
+// import products from '../products';
+import axios from 'axios';
 
-	// 	const fetchProduct = async() =>{
-	// 		const {data} = await axios.get(`/api/products/${id}`)
-	// 		setProduct(data)
-	// 	}
-	// 	fetchProduct()
-	// },[])
+const Singleproduct = (props) => {
+        // const product = products.find((x) => x._id === props.match.params.id);
+        	const [product, setProduct] = useState([])
+	useEffect(() =>{
+
+		const fetchProduct = async() =>{
+			const {data} = await axios.get(`/api/products/${props.match.params.id}`)
+			setProduct(data)
+		}
+		fetchProduct()
+	},[])
     if (!product) {
         return <div> Product Not Found</div>;
     }
