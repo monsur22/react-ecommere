@@ -3,7 +3,6 @@ import React, {useState ,useEffect} from 'react'
 import axios from 'axios';
 
 const Singleproduct = (props) => {
-        // const product = products.find((x) => x._id === props.match.params.id);
         	const [product, setProduct] = useState([])
 	useEffect(() =>{
 
