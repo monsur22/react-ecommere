@@ -5,7 +5,7 @@ import Product from '../pages/Product';
 // import products from '../products.js';
 import axios from 'axios';
   const HomeScreen = () => {
-            	const [products, setProduct] = useState([])
+            const [products, setProduct] = useState([])
             useEffect(() =>{
 
               const fetchProduct = async() =>{
