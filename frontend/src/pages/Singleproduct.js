@@ -1,22 +1,26 @@
-import React, {useState ,useEffect} from 'react'
-// import products from '../products';
-import axios from 'axios';
+import React, { useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { listProductDetails } from '../actions/productAction';
 
-const Singleproduct = (props) => {
-        	const [product, setProduct] = useState([])
-	useEffect(() =>{
 
-		const fetchProduct = async() =>{
-			const {data} = await axios.get(`/api/products/${props.match.params.id}`)
-			setProduct(data)
-		}
-		fetchProduct()
-	},[props])
-    if (!product) {
-        return <div> Product Not Found</div>;
-    }
+
+const Singleproduct = ({match}) => {
+    const dispatch = useDispatch()
+    const productDetails = useSelector((state) => state.productDetails)
+    const { loading, error, product } = productDetails
+
+    useEffect(() => {
+        dispatch(listProductDetails(match.params.id))
+      }, [dispatch, match])
+
+
     return (
         <div>
+                {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
             <div className="row top">
                 <div className="col-2">
                 <img className="large" src={product.image} alt={product.name}></img>
@@ -63,6 +67,8 @@ const Singleproduct = (props) => {
                 </div>
                 </div>
             </div>
+        )}
+
         </div>
     )
 }
