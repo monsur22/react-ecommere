@@ -1,7 +1,7 @@
 import React , { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../actions/cartAction';
+import { addToCart, removeFromCart } from '../actions/cartAction';
 
 const Cart = ({match, location, history}) => {
     const productId = match.params.id
@@ -20,11 +20,12 @@ const Cart = ({match, location, history}) => {
   }, [dispatch, productId, qty])
     console.log(qty)
 
-    const removeFromCartHandler = (id) =>{
-        console.log('remove')
+    const removeFromCartHandler = (id) => {
+        dispatch(removeFromCart(id))
     }
-    const checkoutHandler = (id) =>{
-        console.log('checkout')
+    const checkoutHandler = (id) => {
+        // console.log('checkout')
+        history.push('/login?redirect=shipping')
     }
 
     return (
