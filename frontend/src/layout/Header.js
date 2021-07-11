@@ -1,8 +1,20 @@
 import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { logout } from '../actions/userAction'
 
 const Header = () => {
+
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+const logutHandler= () => {
+    dispatch(logout())
+}
+
     return (
-        <div>
+     <div>
         <header className="row">
             <div>
             <a className="brand" href="/">
@@ -11,7 +23,20 @@ const Header = () => {
             </div>
             <div>
             <a href="/cart">Cart</a>
-            <a href="/signin">Sign In</a>
+            {
+                userInfo ? (
+                    <a href="/profile">{userInfo.name}</a>
+
+
+            ):  <a href="/login">Sign In</a>
+            }
+              {
+                userInfo ? (
+                    <a onClick={logutHandler}>Logout</a>
+
+
+            ):  <a href=""></a>
+            }
             </div>
         </header>
         </div>
