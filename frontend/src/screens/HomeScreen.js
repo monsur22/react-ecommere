@@ -23,7 +23,7 @@ import { listProducts } from '../actions/productAction';
       ) : (
         <div className="row center">
           {products.map((product) => (
-            <Product product={product}/>
+            <Product key={ Math.random().toString(36).substr(2, 9) } product={product}/> // key use for remove warning in console 
             ))}
 
         </div>
