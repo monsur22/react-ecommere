@@ -6,6 +6,7 @@ import Singleproduct from './pages/Singleproduct';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <Route path="/cart/:id?" component={Cart}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/register" component={Register}></Route>
+        <Route path="/register" component={Register}></Route>
+        <Route path="/profile" component={Profile}></Route>
       </main>
       <Footer/>
     </div>
