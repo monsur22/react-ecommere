@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUserDetails } from '../actions/userAction';
+import { getUserDetails, updateUserProfile } from '../actions/userAction';
 
 
 
@@ -20,20 +20,9 @@ const Profile = ({location, history}) => {
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
+    const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+    const { success } = userUpdateProfile
 
-    // useEffect(() => {
-    //     if (!userInfo) {
-    //         history.push('/login')
-    //     }else{
-    //         if(!user.name){
-    //             dispatch(getUserDetails('profile'))
-
-    //         }else{
-    //             setName(user.name)
-    //             setEmail(user.email)
-    //         }
-    //     }
-    // }, [history, userInfo, user])
     useEffect(() => {
         if (!userInfo) {
           history.push('/login')
@@ -52,7 +41,7 @@ const Profile = ({location, history}) => {
         if(password !== confirmPassword){
             setMessage('Password do not match')
         }else{
-            // dispatch(register(name, email, password))
+            dispatch(updateUserProfile({id: user._id, name, email, password}))
             // dispath update profile
         }
 
@@ -70,7 +59,7 @@ const Profile = ({location, history}) => {
                         <li>
                         {loading && <div>Loading...</div>}
                         {error && <div>{error}</div>}
-                        {/* {success && <div>Profile Saved Successfully.</div>} */}
+                        {success && <div>Profile Saved Successfully.</div>}
                         </li>
                         <li>
                         <label htmlFor="name">
