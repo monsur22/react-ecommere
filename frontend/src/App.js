@@ -7,6 +7,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Shipping from './pages/Shipping';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" component={Register}></Route>
         <Route path="/register" component={Register}></Route>
         <Route path="/profile" component={Profile}></Route>
+        <Route path="/shipping" component={Shipping}></Route>
       </main>
       <Footer/>
     </div>
