@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Shipping from './pages/Shipping';
 import Payment from './pages/Payment';
+import PlaceOrder from './pages/PlaceOrder';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/profile" component={Profile}></Route>
         <Route path="/shipping" component={Shipping}></Route>
         <Route path="/payment" component={Payment}></Route>
+        <Route path="/placeorder" component={PlaceOrder}></Route>
       </main>
       <Footer/>
     </div>

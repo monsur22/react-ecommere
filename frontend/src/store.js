@@ -20,11 +20,13 @@ const cartItemsFromStoreage = localStorage.getItem('cartItems') ? JSON.parse(loc
 
 const userinfoFromStoreage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
-const shippingAddressFromStoreage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : null
-
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : null
+// const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+//   ? JSON.parse(localStorage.getItem('shippingAddress'))
+//   : {}
 
 const initialState = {
-    cart: { cartItems: cartItemsFromStoreage , shippingAddress:shippingAddressFromStoreage},
+    cart: { cartItems: cartItemsFromStoreage , shippingAddress:shippingAddressFromStorage},
     userLogin : { userInfo: userinfoFromStoreage},
 }
 
