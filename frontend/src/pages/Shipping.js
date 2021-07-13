@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { saveShippingAddress } from '../actions/cartAction';
+import CheckoutStep from '../pages/CheckoutStep';
 
 const Shipping = ({history}) => {
 
@@ -27,6 +28,7 @@ const Shipping = ({history}) => {
 
     return (
         <div>
+           <CheckoutStep step1 step2 ></CheckoutStep>
             <div className="form">
       <form onSubmit={submitHandler} >
         <ul className="form-container">
