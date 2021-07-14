@@ -1,31 +1,20 @@
-import React, {useState} from 'react'
+import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { saveShippingAddress } from '../actions/cartAction';
 import CheckoutStep from '../pages/CheckoutStep';
+import { createOrder } from '../actions/orderAction'
 
-const PlaceOrder = () => {
-    // const cart= useSelector((state) => state.cart)
-
-    // /// calculate price for
-    // const addDecimals = (num) => {
-    //     return (Math.round(num * 100) / 100 ).toFixed(2)
-    // }
-
-    // cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty,0))
-    // cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
-    // cart.taxPrice = Number((0.15 * cart.itemsPrice).toFixed(2))
-    // cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
-
-    // const placeOrderHandler = () => {
-    //     console.log('order')
-    // }
-
+const PlaceOrder = ({history}) => {
     const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart)
 
-
+    // if (!cart.shippingAddress.address) {
+    //   history.push('/shipping')
+    // } else if (!cart.paymentMethod) {
+    //   history.push('/payment')
+    // }
     //   Calculate prices
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2)
@@ -42,15 +31,30 @@ const PlaceOrder = () => {
       Number(cart.taxPrice)
     ).toFixed(2)
 
+    const orderCreate = useSelector((state) => state.orderCreate)
+    const { order, success, error } = orderCreate
+
+    useEffect(() => {
+        if (success) {
+          history.push(`/order/${order._id}`)
+        }
+        // eslint-disable-next-line 
+      }, [history, success])
 
 
-
-
-
-     const placeOrderHandler = () => {
-        console.log('order')
-    }
-
+    const placeOrderHandler = () => {
+        dispatch(
+            createOrder({
+              orderItems: cart.cartItems,
+              shippingAddress: cart.shippingAddress,
+              paymentMethod: cart.paymentMethod,
+              itemsPrice: cart.itemsPrice,
+              shippingPrice: cart.shippingPrice,
+              taxPrice: cart.taxPrice,
+              totalPrice: cart.totalPrice,
+            })
+          )
+      }
     return (
         <div>
             <CheckoutStep step1 step2 step3 step4 ></CheckoutStep>
