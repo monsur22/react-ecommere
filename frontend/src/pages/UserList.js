@@ -1,7 +1,7 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { listUsers } from '../actions/userAction';
+import { listUsers, deleteUser } from '../actions/userAction';
 
 
 const UserList = ({history}) => {
@@ -13,6 +13,10 @@ const UserList = ({history}) => {
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
+
+    const userDelete = useSelector((state) => state.userDelete)
+    const { success:successDelete } = userDelete
+
     useEffect(() => {
         // dispatch(listUsers())
         if (userInfo && userInfo.isAdmin) {
@@ -20,10 +24,14 @@ const UserList = ({history}) => {
           } else {
             history.push('/login')
           }
-    }, [dispatch, history])
+    }, [dispatch, history, successDelete])
 
     const deleteHandler = (id) => {
         console.log('delete')
+        if (window.confirm('Are you sure')) {
+            dispatch(deleteUser(id))
+          }
+
       }
     return (
         <div>
