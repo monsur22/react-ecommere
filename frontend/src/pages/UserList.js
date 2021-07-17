@@ -4,15 +4,23 @@ import { Link } from 'react-router-dom'
 import { listUsers } from '../actions/userAction';
 
 
-const UserList = () => {
+const UserList = ({history}) => {
     const dispatch = useDispatch()
 
     const userList = useSelector((state) => state.userList)
     const {loading, error, users} = userList
 
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
     useEffect(() => {
-        dispatch(listUsers())
-    }, [dispatch])
+        // dispatch(listUsers())
+        if (userInfo && userInfo.isAdmin) {
+            dispatch(listUsers())
+          } else {
+            history.push('/login')
+          }
+    }, [dispatch, history])
 
     const deleteHandler = (id) => {
         console.log('delete')
@@ -51,7 +59,7 @@ const UserList = () => {
                             </td>
                             <td>
                                 <Link to={`/admin/user/${user._id}/edit`}>Edit</Link>
-                                {/* <Link onClick={() => deleteHandler(user._id)}>Delete</Link> */}
+                                <Link onClick={() => deleteHandler(user._id)}>Delete</Link>
                             </td>
                             </tr>)}
                         </tbody>
