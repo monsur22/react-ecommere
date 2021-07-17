@@ -9,9 +9,9 @@ const Header = () => {
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
-const logutHandler= () => {
-    dispatch(logout())
-}
+    const logutHandler= () => {
+        dispatch(logout())
+    }
 
     return (
      <div>
@@ -37,6 +37,15 @@ const logutHandler= () => {
 
             ):  <a href=""></a>
             }
+              {userInfo && userInfo.isAdmin && (
+                  <a href="/admin/userlist">Users</a>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                  <a href="/admin/productlist">Products</a>
+              )}
+                {userInfo && userInfo.isAdmin && (
+                  <a href="/admin/orderlist">Orders</a>
+              )}
             </div>
         </header>
         </div>
