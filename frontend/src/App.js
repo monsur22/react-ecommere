@@ -25,7 +25,6 @@ function App() {
         <Route path="/cart/:id?" component={Cart}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/register" component={Register}></Route>
-        <Route path="/register" component={Register}></Route>
         <Route path="/profile" component={Profile}></Route>
         <Route path="/shipping" component={Shipping}></Route>
         <Route path="/payment" component={Payment}></Route>
