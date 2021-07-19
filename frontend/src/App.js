@@ -14,6 +14,7 @@ import Order from './pages/Order';
 import UserList from './pages/UserList';
 import UserEdit from './pages/UserEdit';
 import ProductList from './pages/ProductList';
+import ProductEdit from './pages/ProductEdit';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/admin/userlist" component={UserList}></Route>
         <Route path="/admin/user/:id/edit" component={UserEdit}></Route>
         <Route path="/admin/productList" component={ProductList}></Route>
+        <Route path="/admin/product/:id/edit" component={ProductEdit}></Route>
       </main>
       <Footer/>
     </div>
