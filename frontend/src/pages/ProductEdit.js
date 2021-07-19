@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { listProductDetails } from '../actions/productAction'
+import { listProductDetails, updateProduct } from '../actions/productAction'
 import { Form, Button } from 'react-bootstrap'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstant'
 
 const ProductEdit = ({match, history}) => {
     const productId = match.params.id
@@ -22,26 +23,32 @@ const ProductEdit = ({match, history}) => {
     const productDetails = useSelector((state) => state.productDetails)
     const { loading, error, product } = productDetails
 
-    // const userUpdate = useSelector((state) => state.userUpdate)
-    // const { loading:loadingUpdate, error:errorUpdate, success: successUpdate } = userUpdate
+    const productUpdate = useSelector((state) => state.productUpdate)
+    const { loading:loadingUpdate, error:errorUpdate, success: successUpdate } = productUpdate
 
     useEffect(() => {
-        if (!product.name || product._id !== productId) {
-            dispatch(listProductDetails(productId))
-          } else {
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setBrand(product.brand)
-            setCategory(product.category)
-            setCountInStock(product.countInStock)
-            setDescription(product.description)
-          }
-    }, [dispatch, history, productId, product])
+        if(successUpdate){
+            dispatch({type: PRODUCT_UPDATE_RESET})
+            history.push('/admin/productlist')
+        }else{
+            if (!product.name || product._id !== productId) {
+                dispatch(listProductDetails(productId))
+              } else {
+                setName(product.name)
+                setPrice(product.price)
+                setImage(product.image)
+                setBrand(product.brand)
+                setCategory(product.category)
+                setCountInStock(product.countInStock)
+                setDescription(product.description)
+              }
+        }
+
+    }, [dispatch, history, productId, product, successUpdate ])
 
     const submitHandler = (e) => {
-      e.preventDefault()
-    //   dispatch(updateUser({ _id: userId, name, email, isAdmin }))
+        e.preventDefault()
+        dispatch(updateProduct({ _id: productId, name, price, image, brand, category, countInStock, description }))
     }
 
     return (
@@ -54,9 +61,11 @@ const ProductEdit = ({match, history}) => {
                     <h2>Edit Product</h2>
                     </li>
                     <li>
+                    {loadingUpdate && <div>Loading...</div>}
+                    {errorUpdate && <div>{error}</div>}
+
                     {loading && <div>Loading...</div>}
                     {error && <div>{error}</div>}
-                    {/* {message && <div>{message}</div>} */}
                     </li>
 
                     <li>
@@ -91,14 +100,7 @@ const ProductEdit = ({match, history}) => {
                     <label htmlFor="brand">
                         Stock
                     </label>
-                    <input type="number" name="countInStock" id="countInStock" value={countInStock} onChange={(e) => setBrand(e.target.value)}>
-                    </input>
-                    </li>
-                    <li>
-                    <label htmlFor="brand">
-                        Category
-                    </label>
-                    <input type="text" name="category" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <input type="number" name="countInStock" id="countInStock" value={countInStock} onChange={(e) => setCountInStock(e.target.value)}>
                     </input>
                     </li>
                     <li>
