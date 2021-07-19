@@ -1,7 +1,7 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { listProducts } from '../actions/productAction';
+import { listProducts, deleteProduct } from '../actions/productAction';
 
 
 const ProductList = ({history, match}) => {
@@ -9,6 +9,9 @@ const ProductList = ({history, match}) => {
 
     const productList = useSelector((state) => state.productList)
     const {loading, error, products} = productList
+
+    const productDelete = useSelector((state) => state.productDelete)
+    const {loading: loadingDelete, error: errorDelete, success: successDelete} = productDelete
 
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
@@ -23,12 +26,12 @@ const ProductList = ({history, match}) => {
           } else {
             history.push('/login')
           }
-    }, [dispatch, history, userInfo]);
+    }, [dispatch, history, userInfo, successDelete ]);
 
     const deleteHandler = (id) => {
         console.log('delete')
         if (window.confirm('Are you sure')) {
-            // dispatch(deleteUser(id))
+            dispatch(deleteProduct(id))
 
           }
 
@@ -40,6 +43,8 @@ const ProductList = ({history, match}) => {
         <div>
    <div className="profile-orders content-margined">
                 <Link onClick={createProductHandler}>Create Product</Link>
+                {loadingDelete && <div>Loading...</div>}
+                {errorDelete && <div>{errorDelete} </div>}
                 {
                     loading ? <div>Loading...</div> :
                     error ? <div>{error} </div> :
