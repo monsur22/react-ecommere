@@ -1,7 +1,8 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { listProducts, deleteProduct } from '../actions/productAction';
+import { listProducts, deleteProduct, createProduct } from '../actions/productAction';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstant'
 
 
 const ProductList = ({history, match}) => {
@@ -13,6 +14,9 @@ const ProductList = ({history, match}) => {
     const productDelete = useSelector((state) => state.productDelete)
     const {loading: loadingDelete, error: errorDelete, success: successDelete} = productDelete
 
+    const productCreate = useSelector((state) => state.productCreate)
+    const {loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct} = productCreate
+
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
@@ -20,13 +24,20 @@ const ProductList = ({history, match}) => {
 
 
     useEffect(() => {
-        // dispatch(listUsers())
-        if (userInfo && userInfo.isAdmin) {
-            dispatch(listProducts())
-          } else {
+        dispatch({type: PRODUCT_CREATE_RESET})
+
+        if (!userInfo && userInfo.isAdmin) {
+            // dispatch(listProducts())
             history.push('/login')
+
           }
-    }, [dispatch, history, userInfo, successDelete ]);
+
+        if(successCreate) {
+            history.push(`/admin/products/${createProduct._id}/edit`)
+        }else{
+            dispatch(listProducts())
+        }
+    }, [dispatch, history, userInfo, successDelete, successCreate, createProduct ]);
 
     const deleteHandler = (id) => {
         console.log('delete')
@@ -36,15 +47,19 @@ const ProductList = ({history, match}) => {
           }
 
       }
-      const createProductHandler = (product) => {
-        // dispatch(createProduct())
+      const createProductHandler = () => {
+        dispatch(createProduct())
       }
     return (
         <div>
    <div className="profile-orders content-margined">
                 <Link onClick={createProductHandler}>Create Product</Link>
+                {loadingCreate && <div>Loading...</div>}
+                {errorCreate && <div>{errorCreate} </div>}
+
                 {loadingDelete && <div>Loading...</div>}
                 {errorDelete && <div>{errorDelete} </div>}
+
                 {
                     loading ? <div>Loading...</div> :
                     error ? <div>{error} </div> :
