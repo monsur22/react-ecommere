@@ -13,6 +13,7 @@ import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
 import UserList from './pages/UserList';
 import UserEdit from './pages/UserEdit';
+import OrderList from './pages/OrderList';
 import ProductList from './pages/ProductList';
 import ProductEdit from './pages/ProductEdit';
 import Header from './layout/Header';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/payment" component={Payment}></Route>
         <Route path="/placeorder" component={PlaceOrder}></Route>
         <Route path="/order/:id" component={Order}></Route>
+        <Route path="/admin/orderlist" component={OrderList}></Route>
         <Route path="/admin/userlist" component={UserList}></Route>
         <Route path="/admin/user/:id/edit" component={UserEdit}></Route>
         <Route path="/admin/productList" component={ProductList}></Route>
