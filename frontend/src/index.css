@@ -141,12 +141,18 @@ img.large {
 }
 /* Rating */
 .rating span {
-  color: #f0c040;
+  color: #ffb901;
+  font-size: 1.8rem;
   margin: 0.1rem;
 }
 .rating span:last-child {
-  color: #404040;
+  color: #444444;
+  font-size: 1.4rem;
 }
+a > .rating > span:last-child {
+  color: #0000ff;
+}
+
 /* Alert */
 .success {
   color: #20a020;
@@ -340,4 +346,8 @@ th {
 }
 tbody > tr:nth-child(odd) {
   background-color: #f0f0f0;
+}
+
+.product-rating {
+  margin-bottom: 1rem;
 }
