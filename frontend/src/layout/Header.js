@@ -1,6 +1,8 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { logout } from '../actions/userAction'
+import Search from './Search'
 
 const Header = () => {
 
@@ -20,6 +22,10 @@ const Header = () => {
             <a className="brand" href="/">
                 React Ecommerce
             </a>
+            </div>
+            <div>
+            <Route render={({ history }) => <Search history={history} />} />
+
             </div>
             <div>
             <a href="/cart">Cart</a>
